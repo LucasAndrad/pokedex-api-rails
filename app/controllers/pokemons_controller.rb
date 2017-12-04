@@ -11,7 +11,16 @@ class PokemonsController < ApplicationController
   # GET /pokemons/1
   def show
     render json: @pokemon
-  end
+	end
+	
+	# Search endpoint method from:
+	# http://www.bentedder.com/creating-a-basic-autocomplete-search-endpoint-in-ruby-on-rails/
+	def search
+		term = params[:term] || nil
+		@pokemons = []
+		@pokemons = Pokemon.where('name LIKE ? OR number LIKE ? OR type_1 LIKE ? OR type_2 LIKE ?', "%#{term}%", "%#{term}%", "%#{term}%", "%#{term}%")
+		render json: @pokemons
+	end
 
   # POST /pokemons
   def create
