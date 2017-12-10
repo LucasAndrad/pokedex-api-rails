@@ -1,0 +1,34 @@
+AllCops:
+  Excludes:
+    - ./config/**/*
+    - ./db/**/*
+    - ./test/**/*
+    - ./Gemfile
+    - ./spec/rails_helper.rb
+    - ./spec/spec_helper.rb
+
+# Customize rules
+Style/Documentation:
+  Enabled: false
+
+Style/IndentationConsistency:
+  Enabled: false
+
+Style/Tab:
+  Enabled: false
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - ./spec/**/*.rb
+
+Metrics/LineLength:
+  Max: 100
+
+MethodLength:
+  Max: 35
+
+Metrics/AbcSize:
+   Enabled: false
+
+BlockLength:
+  Max: 70
