@@ -9,6 +9,9 @@ Rails.application.routes.draw do
 		get 'search', on: :collection
 	end
 
+	# Pokemon Catched
+	post 'catch' => 'pokemons_catched#catch'
+
 	# Authentication
 	post 'authenticate', to: 'authentication#authenticate'
 end
