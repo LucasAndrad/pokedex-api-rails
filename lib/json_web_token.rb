@@ -9,5 +9,5 @@ module JsonWebToken
     HashWithIndifferentAccess.new body
   rescue
     nil
-  end
+	end
 end
