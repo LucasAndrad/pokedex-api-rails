@@ -1,6 +1,6 @@
 class PokemonsController < ApplicationController
 	include AuthenticationHelper
-	before_action :authenticate_request, only: [:index, :create, :update, :destroy]
+	before_action :authenticate_request, only: [:create, :update, :destroy]
 	before_action :set_pokemon, only: [:show, :update, :destroy]
 
   # GET /pokemons
