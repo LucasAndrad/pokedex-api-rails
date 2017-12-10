@@ -19,6 +19,9 @@ gem 'puma', '~> 3.7'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+# Debug code
+gem 'byebug'
+
 # Create JSON web token (JWT)
 gem 'jwt', '~> 2.1'
 # Simple command for easy methods
