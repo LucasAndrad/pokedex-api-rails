@@ -22,11 +22,18 @@ RSpec.describe PokemonsController, type: :controller do
 			expect(json[2]["name"]).to eq('Charizard')
 		end
 
-		# it 'Should a Pokemon with id = 1 from /pokemons/1' do
-		# 	get :show, params: {id: 1}
-		# 	json = JSON.parse(response.body)
-		# 	expect(response).to have_http_status(200)
-		# 	expect(json.length).to be(1)
-		# end
+		it 'Should get a Pokemon with id = 1 from /pokemons/1' do
+			get :show, params: {id: Pokemon.first.id}
+			json = JSON.parse(response.body)
+			expect(response).to have_http_status(200)
+			expect(json["name"]).to eq('Charmander')
+		end
+
+		it 'Should search for Charmeleon' do
+			get :search, params: {term: 'Charmeleon'}
+			json = JSON.parse(response.body)
+			expect(response).to have_http_status(200)
+			expect(json[0]["name"]).to eq('Charmeleon')
+		end
 	end
 end
