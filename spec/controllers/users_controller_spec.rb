@@ -15,9 +15,8 @@ RSpec.describe UsersController, type: :controller do
 					attack: 84, defense: 78, sp_atk: 109, sp_def: 85, speed: 100, generation: 1, 
 					legendary: 0, image: '0006.png' }
 		])
-		@user = User.create([
-			{ name: 'Ash Katchum', email: 'ash@email.com', password: '123456', age: 10 }
-		])
+
+		@user = User.create(name: 'Ash Katchum', email: 'ash@email.com', password: '123456', age: 10)
 		end
 
 		it 'Should create a new user' do
@@ -26,6 +25,52 @@ RSpec.describe UsersController, type: :controller do
 			user = User.second
 			expect(users).to be(2)
 			expect(user.name).to eq('Gary Oak')
+		end
+
+		it 'Should not create a new user' do
+			post :create, params: { user: { name: 'Gary Oak', email: 'gary', password: '123456', age: 10 }}
+			json = JSON.parse(response.body)
+			expect(json['email'][0]).to eq('Use a valid email')
+		end
+
+		it 'Should not show an existing user' do
+			get :show, params: { id: @user.id }
+			json = JSON.parse(response.body)
+			expect(json['error']).to eq('Not Authorized')
+		end
+		
+		it 'Should show the existing user' do
+			subject.class.skip_before_action :authenticate_request
+			get :show, params: { id: @user.id }
+			json = JSON.parse(response.body)
+			expect(json['name']).to eq('Ash Katchum')
+		end
+
+		it 'Should show all Users' do
+			get :index
+			json = JSON.parse(response.body)
+			expect(json.length).to be(1)
+			expect(json[0]['name']).to eq('Ash Katchum')
+		end
+
+		it 'Should update user with id = 1' do
+			put :update, params: { id: @user, user: { name: 'Ash Katchum Master', email: 'ash@email.com', password: '123456', age: 10 }}
+			json = JSON.parse(response.body)
+			expect(json['name']).to eq('Ash Katchum Master')
+		end
+		:unprocessable_entity
+
+		it 'Should not update user with id = 1' do
+			@user.skip_password_validation = true
+			put :update, params: { id: @user, user: { name: 'Ash Katchum Master', email: 'ash', password: '123456', age: 10 }}
+			json = JSON.parse(response.body)
+			expect(json['email'][0]).to eq('Use a valid email')
+		end
+
+		it 'Should destroy the existing user' do
+			all_users = User.count
+			delete :destroy, params: { id: @user }
+			expect(User.count).to be(all_users-1)
 		end
 
 	end
