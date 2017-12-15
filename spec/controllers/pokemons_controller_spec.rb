@@ -14,6 +14,7 @@ RSpec.describe PokemonsController, type: :controller do
 					attack: 84, defense: 78, sp_atk: 109, sp_def: 85, speed: 100, generation: 1, 
 					legendary: 0, image: '0006.png' }
 		])
+		@pokemon = Pokemon.first
 		end
 
 		it 'Should get http status 200 for /pokemons' do
@@ -41,5 +42,44 @@ RSpec.describe PokemonsController, type: :controller do
 			expect(response).to have_http_status(200)
 			expect(json[0]['name']).to eq('Charmeleon')
 		end
+
+		it 'Should not create new Pokemon, Articuno, not authorized' do
+			post :create, params: { pokemon: { number:144, name:"Articuno", type_1:"Ice", type_2:"Flying", total:580, hp:90, attack:85, defense:100, sp_atk:95, sp_def:125, speed:85, generation:1, legendary:1, image:"0144.png" }}
+			json = JSON.parse(response.body)
+			expect(response).to have_http_status(:unauthorized)
+		end
+
+		it 'Should not create new Pokemon, Articuno, name is nil' do
+			subject.class.skip_before_action :authenticate_request
+			post :create, params: { pokemon: { number:144, name: nil, type_1:"Ice", type_2:"Flying", total:580, hp:90, attack:85, defense:100, sp_atk:95, sp_def:125, speed:85, generation:1, legendary:1, image:"0144.png" }}
+			json = JSON.parse(response.body)
+			expect(json['name'][0]).to eq('Name is required')
+		end
+
+		it 'Should create new Pokemon, Articuno' do
+			post :create, params: { pokemon: { number:144, name:"Articuno", type_1:"Ice", type_2:"Flying", total:580, hp:90, attack:85, defense:100, sp_atk:95, sp_def:125, speed:85, generation:1, legendary:1, image:"0144.png" }}
+			json = JSON.parse(response.body)
+			expect(response).to have_http_status(:created)
+			expect(json['name']).to eq('Articuno')
+		end
+
+		it 'Should update Pokemon with id = 1' do
+			put :update, params: { id: @pokemon, pokemon: { type_1:"Ice Cold", type_2:"Flying Dragon" }}
+			json = JSON.parse(response.body)
+			expect(json['type_2']).to eq('Flying Dragon')
+		end
+
+		it 'Should not update Pokemon with id = 1' do
+			put :update, params: { id: @pokemon, pokemon: { name: nil }}
+			json = JSON.parse(response.body)
+			expect(json['name'][0]).to eq('Name is required')
+		end
+
+		it 'Should destroy the existing Pokemon with id = 1' do
+			all_pokemons = User.count
+			delete :destroy, params: { id: @pokemon }
+			expect(User.count).to be(0)
+		end
+
 	end
 end

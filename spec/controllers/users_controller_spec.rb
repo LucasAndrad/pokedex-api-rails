@@ -25,6 +25,7 @@ RSpec.describe UsersController, type: :controller do
 			user = User.second
 			expect(users).to be(2)
 			expect(user.name).to eq('Gary Oak')
+			expect(response).to have_http_status(:created)
 		end
 
 		it 'Should not create a new user' do
@@ -53,14 +54,14 @@ RSpec.describe UsersController, type: :controller do
 			expect(json[0]['name']).to eq('Ash Katchum')
 		end
 
-		it 'Should update user with id = 1' do
+		it 'Should update User with id = 1' do
 			put :update, params: { id: @user, user: { name: 'Ash Katchum Master', email: 'ash@email.com', password: '123456', age: 10 }}
 			json = JSON.parse(response.body)
 			expect(json['name']).to eq('Ash Katchum Master')
 		end
 		:unprocessable_entity
 
-		it 'Should not update user with id = 1' do
+		it 'Should not update User with id = 1' do
 			@user.skip_password_validation = true
 			put :update, params: { id: @user, user: { name: 'Ash Katchum Master', email: 'ash', password: '123456', age: 10 }}
 			json = JSON.parse(response.body)
