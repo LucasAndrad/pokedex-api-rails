@@ -20,8 +20,8 @@ class User < ApplicationRecord
 		presence: { message: 'Password is required' }, unless: :skip_password_validation
 
 	validates_length_of :password,
-    within: 4..30,	
-    too_short: 'Password minimum size is 4 characters', unless: :skip_password_validation,
-		too_long: 'Password maximum length is 30 characters', unless: :skip_password_validation
+    within: 4..30, unless: :skip_password_validation,
+    too_short: 'Password minimum size is 4 characters',
+		too_long: 'Password maximum length is 30 characters'
 		
 end
