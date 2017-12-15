@@ -13,8 +13,8 @@ RSpec.describe PokemonsController, type: :controller do
 				{ number: 6, name: 'Charizard', type_1:' Fire', type_2: 'Flying', total: 534, hp: 78, 
 					attack: 84, defense: 78, sp_atk: 109, sp_def: 85, speed: 100, generation: 1, 
 					legendary: 0, image: '0006.png' }
-		])
-		@pokemon = Pokemon.first
+			])
+			@pokemon = Pokemon.first
 		end
 
 		it 'Should get http status 200 for /pokemons' do
