@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
 	# Pokemon Catched
 	post 'catch' => 'pokemons_catched#catch'
+	put 'level_up/:id' => 'pokemons_catched#level_up'
 
 	# Authentication
 	post 'authenticate', to: 'authentication#authenticate'
