@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 	include AuthenticationHelper
 	before_action :authenticate_request, only: [:index, :show, :update, :destroy]
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show, :show_pokemons, :update, :destroy]
 
   # GET /users
   def index
@@ -13,7 +13,12 @@ class UsersController < ApplicationController
   # GET /users/1
   def show
     render json: @user
-  end
+	end
+	
+	def show_pokemons
+		@pokemons = PokemonCatched.where(user_id: @user.id)
+		render json: @pokemons
+	end
 
   # POST /users
   def create
@@ -33,7 +38,7 @@ class UsersController < ApplicationController
     else
       render json: @user.errors, status: :unprocessable_entity
     end
-  end
+	end
 
   # DELETE /users/1
   def destroy

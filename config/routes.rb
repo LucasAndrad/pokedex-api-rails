@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
 	# Users
 	resources :users
+	get 'users/:id/pokemons' => 'users#show_pokemons'
 	
 	# Pokemons
 	resources :pokemons do
