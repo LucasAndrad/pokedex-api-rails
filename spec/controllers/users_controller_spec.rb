@@ -16,6 +16,8 @@ RSpec.describe UsersController, type: :controller do
 					legendary: 0, image: '0006.png' }
 			])
 			@user = User.create(name: 'Ash Katchum', email: 'ash@email.com', password: '123456', age: 10)
+			@charmeleon = Pokemon.find_by(name: 'Charmeleon')
+			@pokemon_catched = PokemonCatched.create(pokemon_id: @charmeleon.id, user_id: @user.id, level: 29)
 		end
 
 		it 'Should create a new user' do
@@ -51,6 +53,13 @@ RSpec.describe UsersController, type: :controller do
 			json = JSON.parse(response.body)
 			expect(json.length).to be(1)
 			expect(json[0]['name']).to eq('Ash Katchum')
+		end
+
+		it 'Should show Users pokemons' do
+			get :show_pokemons, params: { id: @user.id }
+			json = JSON.parse(response.body)
+			expect(response).to have_http_status(:ok)
+			expect(json[0]['pokemon_id']).to be(@charmeleon.id)
 		end
 
 		it 'Should update User with id = 1' do

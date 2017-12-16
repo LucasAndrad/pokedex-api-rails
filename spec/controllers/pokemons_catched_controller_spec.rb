@@ -16,6 +16,7 @@ RSpec.describe PokemonsCatchedController, type: :controller do
 					legendary: 0, image: '0006.png' }
 			])
 			@charmander = Pokemon.first
+			@charmeleon = Pokemon.find_by(name: 'Charmeleon')
 			@charizard = Pokemon.find_by(name: 'Charizard')
 			@user = User.create(name: 'Ash Katchum', email: 'ash@email.com', password: '123456', age: 10)
 		end
@@ -41,5 +42,14 @@ RSpec.describe PokemonsCatchedController, type: :controller do
 			expect(response).to have_http_status(:unprocessable_entity)
 			expect(json['level'][0]).to eq('Level 420 is invalid, must be between 1 and 100')
 		end
+
+		it 'Should level up pokemon Charmeleon' do
+			pokemon_catched = PokemonCatched.create(pokemon_id: @charmeleon.id, user_id: @user.id, level: 29)
+			put :level_up, params: { id: pokemon_catched.id }
+			json = JSON.parse(response.body)
+			expect(response).to have_http_status(:accepted)
+			expect(json['level']).to be(30)
+		end
+
 	end
 end

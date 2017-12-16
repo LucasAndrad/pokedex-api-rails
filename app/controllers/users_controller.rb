@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 	include AuthenticationHelper
-	before_action :authenticate_request, only: [:index, :show, :update, :destroy]
+	before_action :authenticate_request, only: [:index, :show, :show_pokemons, :update, :destroy]
   before_action :set_user, only: [:show, :show_pokemons, :update, :destroy]
 
   # GET /users
