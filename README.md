@@ -97,14 +97,78 @@ http://localhost:3000/pokemons/search?term=lugia
 --- 
 
 Create account
-
+```
+curl -H "Content-Type: application/json" -X POST -d
+'{"user": {"email":"ash@email.com","password":"123456","name":"Ash Katchum","age":"10"}}' 
+http://localhost:3000/users
+```
 --- 
 
 
 Login
+```
+curl -H "Content-Type: application/json" -X POST -d
+'{"email": "lucas@email.com","password":"123456"}' http://localhost:3000/authenticate
+```
+
+You will get the token
+```
+{"auth_token":"eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1MjAxMDc0MDB9.nwDSYe3-XExyB3RMKgAQ10EsAGybhsuH6f_vViE_xN4"}
+```
 
 --- 
 
 
-Get pokemon
+Catch pokemon
+
+To catch a pokemon you must to be login, get the token and use here
+
+```
+curl -H "Authorization: {{ Token value }}
+eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1MjAxMDgzNjV9.5p3Y6jCvHQNWdLGyoIBEHMcdR7otkAAXZXR6DT3qaVc"
+-H "Content-Type: application/json" -X POST -d 
+'{"pokemons_catched": {"level":"5","user_id":"3","pokemon_id":"1"}}'
+http://localhost:3000/catch
+```
+
+Output
+```
+{"id":1,"level":5,"pokemon_id":1,"user_id":1,"created_at":"2018-03-02T20:21:04.000Z","updated_at":"2018-03-02T20:21:04.000Z"}
+```
+--- 
+
 See your pokemons
+To see your pokemons you also need to login, and user your token.
+Set your user ID here: 
+```
+http://localhost:3000/users/{{ user_id }}/pokemons
+```
+
+```
+curl -H "Authorization: 
+eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1MjAxMDgzNjV9.5p3Y6jCvHQNWdLGyoIBEHMcdR7otkAAXZXR6DT3qaVc" 
+http://localhost:3000/users/1/pokemons
+
+```
+
+--- 
+
+Level Up
+To level up any pokemon you need to login and use your token
+Set your pokemon_catched ID here: 
+```
+http://localhost:3000/level_up/{{ pokemon_catched_id }}
+```
+
+```
+curl -H "Authorization: 
+eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1MjAxMDgzNjV9.5p3Y6jCvHQNWdLGyoIBEHMcdR7otkAAXZXR6DT3qaVc" 
+-H "Content-Type: application/json" -X PUT http://localhost:3000/level_up/1
+
+```
+
+--- 
+Battle
+
+```
+```
