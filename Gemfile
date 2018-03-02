@@ -5,7 +5,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
 # Use mysql as the database for Active Record
@@ -19,13 +18,15 @@ gem 'puma', '~> 3.7'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
-# Debug code
-gem 'byebug'
-
 # Create JSON web token (JWT)
 gem 'jwt', '~> 2.1'
 # Simple command for easy methods
 gem 'simple_command'
+
+# Gems to help debug at vs-code(code-oss)
+# Tips from https://marlosirapuan.com/ruby-on-rails-visual-studio-code-debug-extensoes-ambiente/
+gem 'ruby-debug-ide', '~> 0.6.1'
+gem 'debase', '~> 0.2.2'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
