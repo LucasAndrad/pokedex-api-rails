@@ -14,6 +14,7 @@ class PokemonCatched < ApplicationRecord
 	presence: { message: 'Pokemon can not be nil' }
 
 	def init
-		self.level ||  1
+		self.level ||  5
+		self.experience || 0
 	end
 end

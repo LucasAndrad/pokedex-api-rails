@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 20171210201212) do
 
   create_table "pokemon_catcheds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "level"
+    t.integer "experience"
     t.bigint "pokemon_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
