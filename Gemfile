@@ -16,17 +16,16 @@ gem 'puma', '~> 3.7'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt'
 
 # Create JSON web token (JWT)
-gem 'jwt', '~> 2.1'
+gem 'jwt'
 # Simple command for easy methods
 gem 'simple_command'
 
 # Gems to help debug at vs-code(code-oss)
 # Tips from https://marlosirapuan.com/ruby-on-rails-visual-studio-code-debug-extensoes-ambiente/
-gem 'ruby-debug-ide', '~> 0.6.1'
-gem 'debase', '~> 0.2.2'
+gem 'debase'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -36,10 +35,10 @@ gem 'debase', '~> 0.2.2'
 
 # Gems to test this code
 group :development, :test do
-	gem 'simplecov', '~> 0.15.1'
-	gem 'rails_best_practices', '~> 1.19'
-	gem 'rubocop', '~> 0.51.0'
-  gem 'rspec-rails', '~> 3.6'
+	gem 'simplecov'
+	gem 'rails_best_practices'
+	gem 'rubocop'
+  gem 'rspec-rails'
 end
 
 group :development, :test do
